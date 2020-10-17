@@ -16,6 +16,7 @@ import { weatherState, weatherReducer } from './Weather/reducer';
 import { authActions } from './Authentication/actions';
 import { locationActions } from './Location/actions';
 import { weatherActions } from './Weather/actions';
+import { Alert } from 'react-native';
 
 
 /**
@@ -79,7 +80,6 @@ const AppProvider: React.FC = ({ children }) => {
         let prevState = JSON.parse(authData);
         if(prevState){
 					AppActions.auth.loadPrevData(dispatch, prevState)
-					setIsInitialized(true);
 				}
 			}
 		};
@@ -93,12 +93,12 @@ const AppProvider: React.FC = ({ children }) => {
    */
 	useEffect(() => {
 		const savePersistData = async () => {
+			console.log("SAVING VALUE. . . . ")
 			await AsyncStorage.setItem('user-auth', JSON.stringify(state.auth));
 		};
 
-		if(isInitialized){
-			savePersistData();
-		}
+		savePersistData();
+	
   });
   
 	return (

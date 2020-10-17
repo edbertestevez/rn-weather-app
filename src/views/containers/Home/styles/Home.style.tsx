@@ -4,7 +4,8 @@ import { FontSize } from '../../../../constants/FontSize';
 
 const styles = StyleSheet.create({
 	container: {
-		padding: 24
+    padding: 24,
+    minHeight: '100%'
 	},
 	name: {
 		fontSize: FontSize.TITLE

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, ScrollView } from 'react-native';
 import { AppColors } from '../../../constants/AppColors';
 import { AppActions, AppContext } from '../../../context/main';
 import { LocationService, CoordinatesType } from '../../../services/LocationService';
@@ -34,9 +34,9 @@ const Home: React.FC = () => {
     fetchCoordinates();
   },[])
 
-  console.log(userInfo?.picture)
   return (
-    <View style={[styles.container, flexStyles.flex_center]}>
+    <ScrollView contentContainerStyle={[styles.container, flexStyles.center]}>
+      
       <Image
         source={{uri: userInfo?.picture}}
         style={[styles.profileImage, ]}
@@ -66,7 +66,7 @@ const Home: React.FC = () => {
         customStyle={styles.logout}
       />
 
-    </View>
+    </ScrollView>
   );
 };
 

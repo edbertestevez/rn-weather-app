@@ -2,10 +2,8 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { AppActions, AppContext } from '../../../context/main';
 
-interface HomeProps {}
-
-const Home: React.FC = (props: HomeProps) => {
-	const { dispatch } = React.useContext(AppContext);
+const Home: React.FC = () => {
+	const { state, dispatch } = React.useContext(AppContext);
 
   return (
     <View style={styles.container}>

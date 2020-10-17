@@ -1,9 +1,11 @@
+import { Alert } from 'react-native';
 import { BASE_API_URL } from '../config/main';
 
-interface ICallParam {
-	method: string;
+interface IApiParam {
+	method?: string;
 	url?: string;
 	body?: object;
+	token?: string;
 }
 
 enum Methods {
@@ -14,48 +16,49 @@ enum Methods {
 }
 
 export type ApiServiceType = {
-	get: (url?: string, body?: object) => Promise<Response>;
-	post: (url?: string, body?: object) => Promise<Response>;
-	patch: (url?: string, body?: object) => Promise<Response>;
-	remove: (url?: string, body?: object) => Promise<Response>;
+	get: <T>(param: IApiParam) => Promise<T>;
+	post: <T>(param: IApiParam) => Promise<T>;
+	patch: <T>(param: IApiParam) => Promise<T>;
+	remove: <T>(param: IApiParam) => Promise<T>;
 };
 
 export const ApiService = {
-	get: (url?: string, body?: object) => {
-		return ApiCall({ url, body, method: Methods.GET });
+	get: (params: IApiParam | void) => {
+		return ApiCall({ ...params, method: Methods.GET });
 	},
 
-	post: (url?: string, body?: object) => {
-		return ApiCall({ url, body, method: Methods.POST });
+	post: (params: IApiParam | void) => {
+		return ApiCall({ ...params, method: Methods.POST });
 	},
 
-	patch: (url?: string, body?: object) => {
-		return ApiCall({ url, body, method: Methods.PATCH });
+	patch: (params: IApiParam | void) => {
+		return ApiCall({ ...params, method: Methods.PATCH });
 	},
 
-	remove: (url?: string, body?: object) => {
-		return ApiCall({ url, body, method: Methods.DELETE });
+	remove: (params: IApiParam | void) => {
+		return ApiCall({ ...params, method: Methods.DELETE });
 	}
 };
 
-const ApiCall = (params: ICallParam) => {
+const ApiCall = async (params: IApiParam) => {
 	let excludeBody = params.method === Methods.GET || params.method === Methods.DELETE;
-    
-    //Default API URL on config
-    let url = BASE_API_URL;
+	let url = BASE_API_URL;
 
-    if(params.url){
-        url = params.url
-    }
+	if (params && params.url) {
+		url = params.url;
+	}
 
 	let options = {
 		method: params.method,
 		headers: {
-			Authorization: `Bearer: `,
-			Accept: 'application/json',
+			Authorization: `Bearer ${params.token}`,
 			'Content-Type': 'application/json'
 		}
 	};
 
-	return fetch(url, excludeBody ? options : { ...options, body: JSON.stringify(params.body) });
+	let response = await fetch(url, excludeBody ? options : { ...options, body: JSON.stringify(params.body) });
+	
+	let result = await response.json();
+	
+	return result;
 };

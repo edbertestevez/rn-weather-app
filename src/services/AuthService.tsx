@@ -1,4 +1,4 @@
-import { auth0, auth0Domain} from '../config/auth0';
+import { auth0, auth0Url} from '../config/auth0';
 import { ApiService } from './ApiService';
 
 export const AuthService = {
@@ -11,8 +11,8 @@ export const AuthService = {
   logoutGithub: async () => {
 		return auth0.webAuth.clearSession();
   },
-  getUser: async () => {
-    let response = ApiService.get(auth0Domain)
-    console.log(response)
+  getUser: async (accessToken: string) => {
+    let userInfo = await ApiService.get({url: auth0Url + "/userinfo", token: accessToken})
+    return userInfo;
   }
 };

@@ -6,7 +6,7 @@ import {
 
 export const authState: AuthStateType = {
   isLoggedIn: false,
-  accessToken: '',
+  accessToken: null,
   userInfo: {
     name: '',
     nickname: '',
@@ -25,10 +25,23 @@ export const authReducer = (state: AuthStateType, action: AuthActions) => {
         ...action.payload
       }
     }
-    case ActionTypes.AUTH_STATE_CHANGED: {
+    case ActionTypes.AUTH_LOGIN: {
       return {
         ...state,
-        isLoggedIn: action.payload.isLoggedIn,
+        ...action.payload
+      };
+    }
+    case ActionTypes.AUTH_LOGOUT: {
+      return {
+        isLoggedIn: false,
+        accessToken: null,
+        userInfo: null 
+      };
+    }
+    case ActionTypes.SET_USER_INFO: {
+      return {
+        ...state,
+        userInfo: action.payload
       };
     }
     default:{

@@ -1,16 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TouchableOpacity, View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import { AppColors } from '../../../constants/AppColors';
 import { FontSize } from '../../../constants/FontSize';
 import { AppActions, AppContext } from '../../../context/main';
-import { RootNavigation } from '../../../navigation/AppNavigation';
-import { AppRoutes } from '../../../navigation/AppRoutes';
 import { AuthService } from '../../../services/AuthService';
 import { flexStyles } from '../../../styles/common.styles';
 
-interface LoginProps {}
-
-const Login: React.FC = (props: LoginProps) => {
+const Login: React.FC = () => {
 	const { state, dispatch } = useContext(AppContext);
 	const [ isLoading, setIsLoading ] = useState(false);
 
@@ -20,17 +16,13 @@ const Login: React.FC = (props: LoginProps) => {
 		const credentials = await AuthService.loginGithub();
 
 		if (credentials) {
-			await AppActions.auth.login(dispatch, credentials.accessToken);
+      let userInfo = await AuthService.getUser(credentials.accessToken);
+			AppActions.auth.login(dispatch, credentials.accessToken);
+			AppActions.auth.setUserInfo(dispatch, userInfo);
 		}
 
 		setIsLoading(false);
 	};
-
-	// useEffect(() => {
-	// 	if (state.auth.isLoggedIn) {
-	// 		RootNavigation.navigate(AppRoutes.HOME);
-	// 	}
-	// }, []);
 
 	return (
 		<View style={flexStyles.flex_center}>

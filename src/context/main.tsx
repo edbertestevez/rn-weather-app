@@ -4,15 +4,18 @@ import AsyncStorage from '@react-native-community/async-storage';
 //Import modules types
 import { AuthStateType } from './Authentication/types';
 import { LocationStateType } from './Location/types';
+import { WeatherStateType } from './Weather/types';
 
 //Import modules state
 import { authState, authReducer } from './Authentication/reducer';
 import { locationState, locationReducer } from './Location/reducer';
+import { weatherState, weatherReducer } from './Weather/reducer';
 
 
 //Import modules actions
 import { authActions } from './Authentication/actions';
 import { locationActions } from './Location/actions';
+import { weatherActions } from './Weather/actions';
 
 
 /**
@@ -20,7 +23,8 @@ import { locationActions } from './Location/actions';
  */
 type InitialStateType = {
 	auth: AuthStateType;
-	location: LocationStateType
+	location: LocationStateType;
+	weather: WeatherStateType;
 };
 
 /**
@@ -28,7 +32,8 @@ type InitialStateType = {
  */
 const initialState = {
 	auth: authState,
-	location: locationState
+	location: locationState,
+	weather: weatherState
 };
 
 /** 
@@ -36,7 +41,8 @@ const initialState = {
 */
 const AppActions = {
 	auth: authActions,
-	location: locationActions
+	location: locationActions,
+	weather: weatherActions
 }
 
 /**
@@ -44,7 +50,8 @@ const AppActions = {
  */
 const mainReducer = (initialState: InitialStateType, action: any) => ({
 	auth: authReducer(initialState.auth, action),
-	location: locationReducer(initialState.location, action)
+	location: locationReducer(initialState.location, action),
+	weather: weatherReducer(initialState.weather, action)
 });
 
 const AppContext = createContext<{
@@ -71,7 +78,8 @@ const AppProvider: React.FC = ({ children }) => {
 			if (authData) {
         let prevState = JSON.parse(authData);
         if(prevState){
-          AppActions.auth.loadPrevData(dispatch, prevState)
+					AppActions.auth.loadPrevData(dispatch, prevState)
+					setIsInitialized(true);
 				}
 			}
 		};

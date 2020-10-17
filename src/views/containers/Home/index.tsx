@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { FontSize } from '../../../constants/FontSize';
+import { Text, View } from 'react-native';
 import { AppActions, AppContext } from '../../../context/main';
 import { LocationService, CoordinatesType } from '../../../services/LocationService';
 import AppButton from '../../components/AppButton';

@@ -1,7 +1,10 @@
 import { ActionMap } from "../../constants/Types";
 
+//Location Related types
+
 export enum ActionTypes {
-  SET_LOCATION = "SET_LOCATION"
+  SET_LOCATION = "SET_LOCATION",
+  SET_FORECAST = "SET_FORECAST"
 }
 
 export type Payload = {
@@ -18,3 +21,4 @@ export type LocationStateType = {
 }
 
 export type LocationActions = ActionMap<Payload>[keyof ActionMap<Payload>];
+

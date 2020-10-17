@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import { 
   ActionTypes, 
   LocationStateType,
@@ -10,8 +9,6 @@ export const locationState: LocationStateType = {
     longitude: '',
     latitude: ''
   }
-
-  /** Insert other persisted states like preferences, etc */
 };
 
 export const locationReducer = (state: LocationStateType, action: LocationActions) => {
@@ -19,7 +16,7 @@ export const locationReducer = (state: LocationStateType, action: LocationAction
 
     case ActionTypes.SET_LOCATION: {
       let coordinates = action.payload.coordinates;
-      
+
       return {
         ...state,
         coordinates:{

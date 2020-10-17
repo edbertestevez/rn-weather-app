@@ -13,16 +13,17 @@ import {
   SafeAreaView,
   StyleSheet
 } from 'react-native';
+import { AppProvider } from './context/main';
 
 import AppNavigation from './navigation/AppNavigation';
 
-declare const global: {HermesInternal: null | {}};
-
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <AppNavigation/>
-    </SafeAreaView>
+    <AppProvider>
+      <SafeAreaView style={styles.container}>
+        <AppNavigation/>
+      </SafeAreaView>
+    </AppProvider>
   );
 };
 

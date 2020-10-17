@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import * as RootNavigation from './RootNavigation';
 import { InitialStack } from './rootNav/InitialStack';
 import { AuthenticatedTab } from './rootNav/AuthenticatedTab';
+import { AppContext } from '../context/main';
 import { PublicStack } from './rootNav/PublicStack';
 
-const AppNavigation = () => {
-	const [ isAppLoading, setIsAppLoading ] = useState(true);
 
-	const isLoggedIn = true; //dummy for testing routes
+const AppNavigation = () => {
+	const { state } = useContext(AppContext);
+	const [ isAppLoading, setIsAppLoading ] = useState(true);
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -22,7 +23,7 @@ const AppNavigation = () => {
 			{isAppLoading ? (
 				//Splash screen
 				<InitialStack />
-			) : isLoggedIn ? (
+			) : state.auth.isLoggedIn ? (
 				//Authenticated screens
 				<AuthenticatedTab />
 			) : (

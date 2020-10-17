@@ -19,8 +19,6 @@ const Home: React.FC = () => {
   const fetchCoordinates = async() =>{
     let location: CoordinatesType = await LocationService.getCoordinates() as CoordinatesType;
     AppActions.location.setLocation(dispatch, {coordinates: location.coords});
-
-    console.log(location)
   }
 
   /**

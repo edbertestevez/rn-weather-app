@@ -8,7 +8,7 @@ import { WeatherService } from '../../../services/WeatherService';
 import GridTable from '../../components/GridTable';
 
 import styles from './styles/Weather.style';
-import { largeScreenKeys, smallScreenKeys } from './templates/weathertable';
+import { largeScreenKeys, smallScreenKeys } from './templates/weatherTable';
 
 interface WeatherProps {}
 

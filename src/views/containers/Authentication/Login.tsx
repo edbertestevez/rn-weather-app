@@ -7,7 +7,7 @@ import { AuthService } from '../../../services/AuthService';
 import { flexStyles } from '../../../styles/common.styles';
 
 const Login: React.FC = () => {
-	const { state, dispatch } = useContext(AppContext);
+	const { dispatch } = useContext(AppContext);
 	const [ isLoading, setIsLoading ] = useState(false);
 
 	const onLogin = async () => {
@@ -26,6 +26,8 @@ const Login: React.FC = () => {
 
 	return (
 		<View style={flexStyles.flex_center}>
+      <Text style={styles.title}>Hello, World!</Text>
+
 			<TouchableOpacity style={styles.loginButton} onPress={onLogin}>
 				{isLoading ? (
           <View style={flexStyles.row_center}>
@@ -43,6 +45,10 @@ const Login: React.FC = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  title:{
+    fontSize: FontSize.TITLE,
+    marginBottom: 32
+  },
 	loginButton: {
 		backgroundColor: AppColors.GREEN,
 		padding: 20,

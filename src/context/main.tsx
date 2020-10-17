@@ -10,6 +10,7 @@ import { authState, authReducer } from './Authentication/reducer';
 
 //Import modules actions
 import { authActions } from './Authentication/actions';
+import { Alert } from 'react-native';
 
 
 /**
@@ -62,7 +63,7 @@ const AppProvider: React.FC = ({ children }) => {
 			const persistData = await AsyncStorage.getItem('@app_context_persist');
 			if (persistData) {
         let prevState = JSON.parse(persistData);
-        AppActions.auth.updateAuthState(dispatch, prevState)
+        AppActions.auth.loadPrevData(dispatch, prevState.auth)
 			}
 		};
 

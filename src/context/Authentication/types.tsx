@@ -9,9 +9,7 @@ export type Payload = {
   [ActionTypes.AUTH_STATE_CHANGED] : {
     isLoggedIn: boolean;
   };
-  [ActionTypes.AUTH_LOAD_STATE] : {
-    prevState: AuthStateType;
-  };
+  [ActionTypes.AUTH_LOAD_STATE] : AuthStateType;
 }
 
 export type AuthStateType = {

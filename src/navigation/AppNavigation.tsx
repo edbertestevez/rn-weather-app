@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as RootNavigation from './RootNavigation';
 import { InitialStack } from './rootNav/InitialStack';
 import { AuthenticatedTab } from './rootNav/AuthenticatedTab';
-import { AppContext, AppActions } from '../context/main';
+import { AppContext } from '../context/main';
 import { PublicStack } from './rootNav/PublicStack';
 
 

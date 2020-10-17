@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import { 
   ActionTypes, 
   AuthStateType,

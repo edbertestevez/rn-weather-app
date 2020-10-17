@@ -1,10 +1,10 @@
 import { ActionTypes, AuthStateType } from './types';
 
 export const authActions = {
-  loadPrevData: (dispatch: React.Dispatch<any>, prevState: AuthStateType)=>{
+  loadPrevData: (dispatch: React.Dispatch<any>, payload: AuthStateType)=>{
     dispatch({
       type: ActionTypes.AUTH_LOAD_STATE,
-      payload: prevState
+      payload
     })
   },
 

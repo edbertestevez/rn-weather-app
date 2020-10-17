@@ -2,15 +2,17 @@ import React, { createContext, useReducer, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 //Import modules types
-import { ActionTypes, AuthStateType } from './Authentication/types';
+import { AuthStateType } from './Authentication/types';
+import { LocationStateType } from './Location/types';
 
 //Import modules state
 import { authState, authReducer } from './Authentication/reducer';
+import { locationState, locationReducer } from './Location/reducer';
 
 
 //Import modules actions
 import { authActions } from './Authentication/actions';
-import { Alert } from 'react-native';
+import { locationActions } from './Location/actions';
 
 
 /**
@@ -18,27 +20,31 @@ import { Alert } from 'react-native';
  */
 type InitialStateType = {
 	auth: AuthStateType;
+	location: LocationStateType
 };
 
 /**
  * Compiles app modules context state
  */
 const initialState = {
-	auth: authState
+	auth: authState,
+	location: locationState
 };
 
 /** 
 * Compile modules action types
 */
 const AppActions = {
-  auth: authActions
+	auth: authActions,
+	location: locationActions
 }
 
 /**
  * Compiles all reducer actions
  */
 const mainReducer = (initialState: InitialStateType, action: any) => ({
-	auth: authReducer(initialState.auth, action)
+	auth: authReducer(initialState.auth, action),
+	location: locationReducer(initialState.location, action)
 });
 
 const AppContext = createContext<{

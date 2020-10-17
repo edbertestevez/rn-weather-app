@@ -44,6 +44,8 @@ project
 │             └─── <Module>
 │                   └─── styles             # Module related styles
 │                   └─── templates          # Module related templates/forms
+│                   └─── ...<components>    # Module related components
+
 │   ────App.tsx                             # Root application component
 ```
 

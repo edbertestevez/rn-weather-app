@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+import { AuthService } from '../../services/AuthService';
 import { ActionTypes, AuthStateType, User } from './types';
 
 export const authActions = {
@@ -26,13 +28,21 @@ export const authActions = {
   },
 
   logout: (dispatch: React.Dispatch<any>) => {
-    dispatch({
-      type: ActionTypes.AUTH_LOGOUT,
-      payload: {
-        isLoggedIn: false,
-        accessToken: '',
-        userInfo: null
-      }
+    AuthService.logoutGithub()
+    .then(()=>{
+      dispatch({
+        type: ActionTypes.AUTH_LOGOUT,
+        payload: {
+          isLoggedIn: false,
+          accessToken: '',
+          userInfo: null
+        }
+      })
     })
+    .catch(()=>{
+      console.log("FAILED TO LOGOUT. . .")
+    })
+
+    
   }
 }

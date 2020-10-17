@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { auth0, auth0Url } from '../config/auth0';
 import { User } from '../context/Authentication/types';
 import { ApiService } from './ApiService';
@@ -22,7 +23,9 @@ export const AuthService: AuthServiceType = {
 		});
 	},
 	logoutGithub: async () => {
-		return auth0.webAuth.clearSession();
+		return auth0.webAuth.clearSession(
+      // {federated: true}
+    );
 	},
 	getUser: async (accessToken: string) => {
 		let userInfo: User = await ApiService.get({ url: auth0Url + '/userinfo', token: accessToken });

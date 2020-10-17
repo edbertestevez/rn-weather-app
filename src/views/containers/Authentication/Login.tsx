@@ -16,24 +16,24 @@ const Login: React.FC = () => {
 		const credentials = await AuthService.loginGithub();
 
 		if (credentials) {
-      let userInfo = await AuthService.getUser(credentials.accessToken);
+			let userInfo = await AuthService.getUser(credentials.accessToken);
 			AppActions.auth.login(dispatch, credentials.accessToken);
 			AppActions.auth.setUserInfo(dispatch, userInfo);
+		} else {
+			setIsLoading(false);
 		}
-
-		setIsLoading(false);
 	};
 
 	return (
 		<View style={flexStyles.flex_center}>
-      <Text style={styles.title}>Hello, World!</Text>
+			<Text style={styles.title}>Hello, World!</Text>
 
 			<TouchableOpacity style={styles.loginButton} onPress={onLogin}>
 				{isLoading ? (
-          <View style={flexStyles.row_center}>
-            <ActivityIndicator color={AppColors.WHITE} size={26} />
-            <Text style={styles.loginLabel}>{` Verifying`}</Text>
-          </View>
+					<View style={flexStyles.row_center}>
+						<ActivityIndicator color={AppColors.WHITE} size={26} />
+						<Text style={styles.loginLabel}>{` Verifying`}</Text>
+					</View>
 				) : (
 					<Text style={styles.loginLabel}>Login with Github</Text>
 				)}
@@ -45,10 +45,10 @@ const Login: React.FC = () => {
 export default Login;
 
 const styles = StyleSheet.create({
-  title:{
-    fontSize: FontSize.TITLE,
-    marginBottom: 32
-  },
+	title: {
+		fontSize: FontSize.TITLE,
+		marginBottom: 32
+	},
 	loginButton: {
 		backgroundColor: AppColors.GREEN,
 		padding: 20,

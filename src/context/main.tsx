@@ -2,15 +2,17 @@ import React, { createContext, useReducer, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 //Import modules types
-import { ActionTypes, AuthStateType } from './Authentication/types';
+import { AuthStateType } from './Authentication/types';
+import { LocationStateType } from './Location/types';
 
 //Import modules state
 import { authState, authReducer } from './Authentication/reducer';
+import { locationState, locationReducer } from './Location/reducer';
 
 
 //Import modules actions
 import { authActions } from './Authentication/actions';
-import { Alert } from 'react-native';
+import { locationActions } from './Location/actions';
 
 
 /**
@@ -18,27 +20,31 @@ import { Alert } from 'react-native';
  */
 type InitialStateType = {
 	auth: AuthStateType;
+	location: LocationStateType
 };
 
 /**
  * Compiles app modules context state
  */
 const initialState = {
-	auth: authState
+	auth: authState,
+	location: locationState
 };
 
 /** 
 * Compile modules action types
 */
 const AppActions = {
-  auth: authActions
+	auth: authActions,
+	location: locationActions
 }
 
 /**
  * Compiles all reducer actions
  */
 const mainReducer = (initialState: InitialStateType, action: any) => ({
-	auth: authReducer(initialState.auth, action)
+	auth: authReducer(initialState.auth, action),
+	location: locationReducer(initialState.location, action)
 });
 
 const AppContext = createContext<{
@@ -54,6 +60,7 @@ const AppContext = createContext<{
  */
 const AppProvider: React.FC = ({ children }) => {
 	let [ state, dispatch ] = useReducer(mainReducer, initialState);
+	let [ isInitialized, setIsInitialized ] = useState(false);
 
   /**
    * Loads initial state saved on AsyncStorage on app load
@@ -64,8 +71,8 @@ const AppProvider: React.FC = ({ children }) => {
 			if (authData) {
         let prevState = JSON.parse(authData);
         if(prevState){
-          AppActions.auth.loadPrevData(dispatch, prevState.auth)
-        }
+          AppActions.auth.loadPrevData(dispatch, prevState)
+				}
 			}
 		};
 
@@ -81,7 +88,9 @@ const AppProvider: React.FC = ({ children }) => {
 			await AsyncStorage.setItem('user-auth', JSON.stringify(state.auth));
 		};
 
-		savePersistData();
+		if(isInitialized){
+			savePersistData();
+		}
   });
   
 	return (

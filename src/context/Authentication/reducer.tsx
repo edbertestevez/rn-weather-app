@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import { 
   ActionTypes, 
   AuthStateType,
@@ -19,6 +20,7 @@ export const authState: AuthStateType = {
 
 export const authReducer = (state: AuthStateType, action: AuthActions) => {
   switch (action.type) {
+
     case ActionTypes.AUTH_LOAD_STATE: {
       return {
         ...state,

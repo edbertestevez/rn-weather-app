@@ -60,10 +60,12 @@ const AppProvider: React.FC = ({ children }) => {
    */
   useEffect(() => {
 		const loadPersistData = async () => {
-			const persistData = await AsyncStorage.getItem('@app_context_persist');
-			if (persistData) {
-        let prevState = JSON.parse(persistData);
-        AppActions.auth.loadPrevData(dispatch, prevState.auth)
+			const authData = await AsyncStorage.getItem('user-auth');
+			if (authData) {
+        let prevState = JSON.parse(authData);
+        if(prevState){
+          AppActions.auth.loadPrevData(dispatch, prevState.auth)
+        }
 			}
 		};
 
@@ -76,7 +78,7 @@ const AppProvider: React.FC = ({ children }) => {
    */
 	useEffect(() => {
 		const savePersistData = async () => {
-			await AsyncStorage.setItem('@app_context_persist', JSON.stringify(state));
+			await AsyncStorage.setItem('user-auth', JSON.stringify(state.auth));
 		};
 
 		savePersistData();

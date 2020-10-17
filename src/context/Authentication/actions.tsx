@@ -8,11 +8,12 @@ export const authActions = {
     })
   },
 
-  login: (dispatch: React.Dispatch<any>) => {
+  login: (dispatch: React.Dispatch<any>, accessToken: string) => {
     dispatch({
       type: ActionTypes.AUTH_STATE_CHANGED,
       payload: {
-        isLoggedIn: true
+        isLoggedIn: true,
+        accessToken
       }
     })
   },
@@ -21,7 +22,9 @@ export const authActions = {
     dispatch({
       type: ActionTypes.AUTH_STATE_CHANGED,
       payload: {
-        isLoggedIn: false
+        isLoggedIn: false,
+        accessToken: '',
+        userInfo: null
       }
     })
   }

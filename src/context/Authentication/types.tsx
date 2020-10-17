@@ -12,8 +12,17 @@ export type Payload = {
   [ActionTypes.AUTH_LOAD_STATE] : AuthStateType;
 }
 
+export type User = {
+  name: string,
+  nickname: string,
+  picture: string,
+  email: string
+}
+
 export type AuthStateType = {
-	isLoggedIn: boolean;
+  isLoggedIn: boolean,
+  accessToken: string,
+  userInfo: User
 }
 
 export type AuthActions = ActionMap<Payload>[keyof ActionMap<Payload>];

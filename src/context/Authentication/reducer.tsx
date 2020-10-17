@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import { 
   ActionTypes, 
   AuthStateType,
@@ -6,7 +5,14 @@ import {
 } from "./types";
 
 export const authState: AuthStateType = {
-  isLoggedIn: false
+  isLoggedIn: false,
+  accessToken: '',
+  userInfo: {
+    name: '',
+    nickname: '',
+    picture: '',
+    email: ''
+  }
 
   /** Insert other persisted states like preferences, etc */
 };

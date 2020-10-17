@@ -7,6 +7,11 @@ import { ActionTypes, AuthStateType } from './Authentication/types';
 //Import modules state
 import { authState, authReducer } from './Authentication/reducer';
 
+
+//Import modules actions
+import { authActions } from './Authentication/actions';
+
+
 /**
  * Define types of each module's state 
  */
@@ -25,7 +30,7 @@ const initialState = {
 * Compile modules action types
 */
 const AppActions = {
-  auth: ActionTypes
+  auth: authActions
 }
 
 /**
@@ -56,7 +61,8 @@ const AppProvider: React.FC = ({ children }) => {
 		const loadPersistData = async () => {
 			const persistData = await AsyncStorage.getItem('@app_context_persist');
 			if (persistData) {
-        state = JSON.parse(persistData);
+        let prevState = JSON.parse(persistData);
+        AppActions.auth.updateAuthState(dispatch, prevState)
 			}
 		};
 

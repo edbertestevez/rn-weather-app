@@ -1,6 +1,9 @@
 import React, {useContext} from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
+import { AppColors } from '../../../constants/AppColors';
+import { FontSize } from '../../../constants/FontSize';
 import { AppActions, AppContext } from '../../../context/main';
+import { flexStyles } from '../../../styles/common.styles';
 
 interface LoginProps {}
 
@@ -8,16 +11,11 @@ const Login: React.FC = (props: LoginProps) => {
 	const { dispatch } = useContext(AppContext);
 
   return (
-    <View style={styles.container}>
-      <Button
-        title="LOGIN"
-        onPress={()=>dispatch({
-          type: AppActions.auth.AUTH_STATE_CHANGED,
-          payload: {
-            isLoggedIn: true
-          }
-        })}
-      />
+    <View style={flexStyles.flex_center}>
+      <TouchableOpacity style={styles.loginButton} onPress={()=>AppActions.auth.updateAuthState(dispatch, true)}>
+        <Text style={styles.loginLabel}>Login with Github</Text>
+      </TouchableOpacity>
+
     </View>
   );
 };
@@ -25,5 +23,13 @@ const Login: React.FC = (props: LoginProps) => {
 export default Login;
 
 const styles = StyleSheet.create({
-  container: {}
+  loginButton: {
+    backgroundColor: AppColors.GREEN,
+    padding: 20,
+    borderRadius: 10
+  },
+  loginLabel:{
+    fontSize: FontSize.NORMAL,
+    color: AppColors.WHITE
+  }
 });

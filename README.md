@@ -1,7 +1,9 @@
 # RN Weather App
 
 This application was built with bare react native and typescript for a coding challenge.
-  - Currently developed for Android only
+  - Currently developed for Android only.
+  - iOS - no tools available.
+  - Web - currently have issues with babel configurations.
   
 ### Portrait
 <img src="screenshots/portrait.png" height="500px"/>
@@ -30,6 +32,7 @@ project
 │               └─── actions.tsx            # Context action triggers
 │               └─── reducer.tsx            # Context reducer and initial state
 │               └─── types.tsx              # Context type definitions
+│        └─── main.tsx                      # Main context compiler
 │   └─── navigation                         # App Navigation files
 │          └─── moduleStack                 # Contains authenticated modules stacks
 │          └─── rootNav                     # Contins root application stacks

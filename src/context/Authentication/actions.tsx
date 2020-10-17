@@ -7,11 +7,21 @@ export const authActions = {
       payload: prevState
     })
   },
-  updateAuthState: (dispatch: React.Dispatch<any>, isLoggedIn: boolean) => {
+
+  login: (dispatch: React.Dispatch<any>) => {
     dispatch({
       type: ActionTypes.AUTH_STATE_CHANGED,
       payload: {
-        isLoggedIn
+        isLoggedIn: true
+      }
+    })
+  },
+
+  logout: (dispatch: React.Dispatch<any>) => {
+    dispatch({
+      type: ActionTypes.AUTH_STATE_CHANGED,
+      payload: {
+        isLoggedIn: false
       }
     })
   }

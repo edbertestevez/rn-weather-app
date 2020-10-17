@@ -12,7 +12,7 @@ const Login: React.FC = (props: LoginProps) => {
 
   return (
     <View style={flexStyles.flex_center}>
-      <TouchableOpacity style={styles.loginButton} onPress={()=>AppActions.auth.updateAuthState(dispatch, true)}>
+      <TouchableOpacity style={styles.loginButton} onPress={()=>AppActions.auth.login(dispatch)}>
         <Text style={styles.loginLabel}>Login with Github</Text>
       </TouchableOpacity>
 

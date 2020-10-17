@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
+import { AppColors } from '../../../constants/AppColors';
 import { AppActions, AppContext } from '../../../context/main';
 import { LocationService, CoordinatesType } from '../../../services/LocationService';
+import { flexStyles } from '../../../styles/common.styles';
 import AppButton from '../../components/AppButton';
 import styles from './styles/Home.style';
 
@@ -21,6 +23,10 @@ const Home: React.FC = () => {
     AppActions.location.setLocation(dispatch, {coordinates: location.coords});
   }
 
+  const onLogout = () =>{
+    AppActions.auth.logout(dispatch);
+  }
+
   /**
    * Get location on application load.
    */
@@ -28,10 +34,24 @@ const Home: React.FC = () => {
     fetchCoordinates();
   },[])
 
+  console.log(userInfo?.picture)
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, flexStyles.flex_center]}>
+      <Image
+        source={{uri: userInfo?.picture}}
+        style={[styles.profileImage, ]}
+      />
+
       <Text style={styles.name}>{userInfo?.name}</Text>
+      
       <Text style={styles.link}>http://github.com/{userInfo?.nickname}</Text>
+
+      {showCoordinates && (
+        <View style={styles.coordinates}>
+          <Text>Latitude: {coordinates.latitude}</Text>
+          <Text>Longitude: {coordinates.longitude}</Text>
+        </View>
+      )}
 
       <AppButton 
         label={"Show Coordinates"} 
@@ -39,13 +59,13 @@ const Home: React.FC = () => {
         customStyle={styles.button}
       />
 
-      
-      {showCoordinates && (
-        <View>
-          <Text>Latitude: {coordinates.latitude}</Text>
-          <Text>Longitude: {coordinates.longitude}</Text>
-        </View>
-      )}
+      <AppButton 
+        label={"Logout"} 
+        onPress={onLogout}
+        color={AppColors.DARK_GREY}
+        customStyle={styles.logout}
+      />
+
     </View>
   );
 };

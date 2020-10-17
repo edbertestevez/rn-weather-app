@@ -19,7 +19,7 @@ const AppButton = (props: AppButtonProps) => {
       activeOpacity={0.7}
       onPress={onPress} 
       style={[ 
-        flexStyles.flex_center, 
+        flexStyles.center, 
         styles.container, 
         {
           backgroundColor: color ?? AppColors.GREEN,
@@ -37,7 +37,7 @@ export default AppButton;
 const styles = StyleSheet.create({
 	container: {
 		padding: 20,
-		borderRadius: 10
+    borderRadius: 10
 	},
 	label: {
 		fontSize: FontSize.NORMAL,

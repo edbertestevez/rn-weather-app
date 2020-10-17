@@ -9,6 +9,10 @@ const styles = StyleSheet.create({
   title:{
     fontSize: FontSize.TITLE,
     marginBottom: 20
+  },
+  loadingLabel:{
+    fontSize: FontSize.NORMAL,
+    marginLeft: 12
   }
 });
 

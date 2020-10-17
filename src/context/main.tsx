@@ -54,6 +54,7 @@ const AppContext = createContext<{
  */
 const AppProvider: React.FC = ({ children }) => {
 	let [ state, dispatch ] = useReducer(mainReducer, initialState);
+	let [ isInitialized, setIsInitialized ] = useState(false);
 
   /**
    * Loads initial state saved on AsyncStorage on app load
@@ -64,8 +65,8 @@ const AppProvider: React.FC = ({ children }) => {
 			if (authData) {
         let prevState = JSON.parse(authData);
         if(prevState){
-          AppActions.auth.loadPrevData(dispatch, prevState.auth)
-        }
+          AppActions.auth.loadPrevData(dispatch, prevState)
+				}
 			}
 		};
 
@@ -81,7 +82,9 @@ const AppProvider: React.FC = ({ children }) => {
 			await AsyncStorage.setItem('user-auth', JSON.stringify(state.auth));
 		};
 
-		savePersistData();
+		if(isInitialized){
+			savePersistData();
+		}
   });
   
 	return (
